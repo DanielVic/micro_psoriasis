@@ -1,0 +1,101 @@
+Certificate:
+    Data:
+        Version: 3 (0x2)
+        Serial Number: 1 (0x1)
+    Signature Algorithm: sha256WithRSAEncryption
+        Issuer: C=ES, ST=ZARAGOZA, L=ZARAGOZA, O=TELEMATICA, OU=MyOrganizationalUnit, CN=TELEMATICA CA/name=EasyRSA/emailAddress=a@ehealthz.es
+        Validity
+            Not Before: Mar 24 09:33:46 2017 GMT
+            Not After : Mar 22 09:33:46 2027 GMT
+        Subject: C=ES, ST=ZARAGOZA, L=ZARAGOZA, O=TELEMATICA, OU=MyOrganizationalUnit, CN=signal.ehealthz.es/name=EasyRSA/emailAddress=a@ehealthz.es
+        Subject Public Key Info:
+            Public Key Algorithm: rsaEncryption
+                Public-Key: (2048 bit)
+                Modulus:
+                    00:dc:dd:b3:3e:0a:58:4e:95:0e:af:d6:dd:b4:5a:
+                    23:c2:80:70:6f:9d:cc:e6:c3:03:67:34:90:4b:d8:
+                    ce:13:6e:c2:42:95:64:a4:78:96:12:26:ee:55:6f:
+                    e6:d5:49:35:37:0f:76:7c:6d:59:00:a8:84:ce:9c:
+                    11:60:5f:90:19:b7:d3:ba:54:c9:f2:28:bd:93:a4:
+                    3d:b3:9e:87:09:81:27:67:d0:1a:1e:c4:b7:3c:bb:
+                    63:b1:64:80:73:6b:a1:11:57:18:3e:74:0d:99:b3:
+                    67:09:07:5b:c7:3d:27:0b:bc:8b:d2:e3:74:d9:d1:
+                    d8:69:68:9e:22:4e:4d:e5:25:ec:e3:96:c9:78:02:
+                    79:6b:4b:97:b8:7a:4d:7a:b4:e0:41:9f:6e:76:ba:
+                    3e:0a:1a:4c:5e:67:d1:7f:7f:aa:08:f4:60:4c:87:
+                    a1:ce:7b:96:fc:01:9c:63:ac:e0:30:b4:64:d1:60:
+                    ba:21:d8:07:ce:50:01:75:46:48:da:3c:53:3f:8e:
+                    5e:e0:a2:62:49:f3:44:61:de:9f:3a:a2:ec:42:c7:
+                    25:54:3f:d5:5e:71:72:0c:4b:99:fe:67:3a:65:2a:
+                    3d:b4:7d:26:7e:ae:e6:2f:d9:d8:ec:c6:2b:41:43:
+                    ad:7e:55:a5:8c:7c:b9:12:cf:b3:2d:3f:48:07:8c:
+                    95:b3
+                Exponent: 65537 (0x10001)
+        X509v3 extensions:
+            X509v3 Basic Constraints: 
+                CA:FALSE
+            Netscape Cert Type: 
+                SSL Server
+            Netscape Comment: 
+                Easy-RSA Generated Server Certificate
+            X509v3 Subject Key Identifier: 
+                90:C5:21:8E:84:DD:13:B8:67:E2:F1:E4:EE:D2:A4:9E:28:F1:32:98
+            X509v3 Authority Key Identifier: 
+                keyid:A5:20:35:30:AE:E2:7E:AE:FB:10:34:C7:5F:67:CE:EF:68:B6:45:3C
+                DirName:/C=ES/ST=ZARAGOZA/L=ZARAGOZA/O=TELEMATICA/OU=MyOrganizationalUnit/CN=TELEMATICA CA/name=EasyRSA/emailAddress=a@ehealthz.es
+                serial:91:1A:BF:86:17:F2:E2:F8
+
+            X509v3 Extended Key Usage: 
+                TLS Web Server Authentication
+            X509v3 Key Usage: 
+                Digital Signature, Key Encipherment
+            X509v3 Subject Alternative Name: 
+                DNS:signal.ehealthz.es
+    Signature Algorithm: sha256WithRSAEncryption
+         06:28:3e:34:77:b6:7e:46:82:c0:b8:75:30:18:05:07:4e:07:
+         bd:a8:c8:77:81:db:00:f3:bc:c5:6e:13:ce:c9:1d:17:3e:67:
+         7d:d1:b7:fb:ea:6e:a1:22:d9:3a:22:9a:6d:96:2f:95:70:cf:
+         1a:70:e0:8f:15:34:80:80:49:55:13:48:42:71:3a:c6:66:26:
+         ca:5e:5c:55:31:a8:19:66:16:ae:54:4f:2d:95:68:62:b3:db:
+         84:81:b0:37:69:40:fb:75:90:c1:4a:94:08:12:fc:14:2f:63:
+         a1:d5:34:e1:89:7f:c1:74:aa:7b:3b:3c:9d:36:34:0d:81:e8:
+         5a:c1:d0:08:3d:81:d4:e5:49:14:61:27:63:cc:9e:23:b0:34:
+         be:6a:2c:14:79:f2:93:8c:79:a8:4b:66:a0:31:f0:ce:1a:59:
+         ca:9d:0a:d6:2a:30:f6:70:bc:e7:8f:33:dd:3b:d7:f0:86:ae:
+         5e:61:12:ec:7d:4b:cc:cd:fe:b2:96:95:e5:20:0e:fe:d7:bc:
+         a6:cd:e8:c0:29:b0:2c:ed:be:ff:26:08:42:6d:c3:52:d3:5b:
+         a1:e4:e1:a3:3a:b4:67:25:82:e9:e7:53:52:d1:b4:e3:6d:ad:
+         39:57:03:35:6a:db:c0:4c:16:24:10:2d:cf:54:bd:ed:45:1e:
+         10:84:46:ff
+-----BEGIN CERTIFICATE-----
+MIIFgTCCBGmgAwIBAgIBATANBgkqhkiG9w0BAQsFADCBrzELMAkGA1UEBhMCRVMx
+ETAPBgNVBAgTCFpBUkFHT1pBMREwDwYDVQQHEwhaQVJBR09aQTETMBEGA1UEChMK
+VEVMRU1BVElDQTEdMBsGA1UECxMUTXlPcmdhbml6YXRpb25hbFVuaXQxFjAUBgNV
+BAMTDVRFTEVNQVRJQ0EgQ0ExEDAOBgNVBCkTB0Vhc3lSU0ExHDAaBgkqhkiG9w0B
+CQEWDWFAZWhlYWx0aHouZXMwHhcNMTcwMzI0MDkzMzQ2WhcNMjcwMzIyMDkzMzQ2
+WjCBtDELMAkGA1UEBhMCRVMxETAPBgNVBAgTCFpBUkFHT1pBMREwDwYDVQQHEwha
+QVJBR09aQTETMBEGA1UEChMKVEVMRU1BVElDQTEdMBsGA1UECxMUTXlPcmdhbml6
+YXRpb25hbFVuaXQxGzAZBgNVBAMTEnNpZ25hbC5laGVhbHRoei5lczEQMA4GA1UE
+KRMHRWFzeVJTQTEcMBoGCSqGSIb3DQEJARYNYUBlaGVhbHRoei5lczCCASIwDQYJ
+KoZIhvcNAQEBBQADggEPADCCAQoCggEBANzdsz4KWE6VDq/W3bRaI8KAcG+dzObD
+A2c0kEvYzhNuwkKVZKR4lhIm7lVv5tVJNTcPdnxtWQCohM6cEWBfkBm307pUyfIo
+vZOkPbOehwmBJ2fQGh7Etzy7Y7FkgHNroRFXGD50DZmzZwkHW8c9Jwu8i9LjdNnR
+2GloniJOTeUl7OOWyXgCeWtLl7h6TXq04EGfbna6PgoaTF5n0X9/qgj0YEyHoc57
+lvwBnGOs4DC0ZNFguiHYB85QAXVGSNo8Uz+OXuCiYknzRGHenzqi7ELHJVQ/1V5x
+cgxLmf5nOmUqPbR9Jn6u5i/Z2OzGK0FDrX5VpYx8uRLPsy0/SAeMlbMCAwEAAaOC
+AZ8wggGbMAkGA1UdEwQCMAAwEQYJYIZIAYb4QgEBBAQDAgZAMDQGCWCGSAGG+EIB
+DQQnFiVFYXN5LVJTQSBHZW5lcmF0ZWQgU2VydmVyIENlcnRpZmljYXRlMB0GA1Ud
+DgQWBBSQxSGOhN0TuGfi8eTu0qSeKPEymDCB5AYDVR0jBIHcMIHZgBSlIDUwruJ+
+rvsQNMdfZ87vaLZFPKGBtaSBsjCBrzELMAkGA1UEBhMCRVMxETAPBgNVBAgTCFpB
+UkFHT1pBMREwDwYDVQQHEwhaQVJBR09aQTETMBEGA1UEChMKVEVMRU1BVElDQTEd
+MBsGA1UECxMUTXlPcmdhbml6YXRpb25hbFVuaXQxFjAUBgNVBAMTDVRFTEVNQVRJ
+Q0EgQ0ExEDAOBgNVBCkTB0Vhc3lSU0ExHDAaBgkqhkiG9w0BCQEWDWFAZWhlYWx0
+aHouZXOCCQCRGr+GF/Li+DATBgNVHSUEDDAKBggrBgEFBQcDATALBgNVHQ8EBAMC
+BaAwHQYDVR0RBBYwFIISc2lnbmFsLmVoZWFsdGh6LmVzMA0GCSqGSIb3DQEBCwUA
+A4IBAQAGKD40d7Z+RoLAuHUwGAUHTge9qMh3gdsA87zFbhPOyR0XPmd90bf76m6h
+Itk6Ipptli+VcM8acOCPFTSAgElVE0hCcTrGZibKXlxVMagZZhauVE8tlWhis9uE
+gbA3aUD7dZDBSpQIEvwUL2Oh1TThiX/BdKp7OzydNjQNgehawdAIPYHU5UkUYSdj
+zJ4jsDS+aiwUefKTjHmoS2agMfDOGlnKnQrWKjD2cLznjzPdO9fwhq5eYRLsfUvM
+zf6ylpXlIA7+17ymzejAKbAs7b7/JghCbcNS01uh5OGjOrRnJYLp51NS0bTjba05
+VwM1atvATBYkEC3PVL3tRR4QhEb/
+-----END CERTIFICATE-----

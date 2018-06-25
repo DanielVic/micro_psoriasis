@@ -1,0 +1,223 @@
+<?xml version = "1.0" encoding = "utf-8"?>
+<!-- Daniel Vicente Moya 01/03/2018 -->
+
+<aiml>
+	<category>
+		<pattern>MEDIA</pattern>
+		<microservice>Procesado_imagen</microservice>
+		<template>¿La zona de la lesión tiene mucho vello? 1. Sí 2. No 3. Salir</template>
+	</category>
+	<category>
+		<pattern>PROCESADO</pattern>
+		<template>¿La zona tiene mucho vello? 1. Sí 2. No 3. Salir</template>
+	</category>
+	<!-- Las siguientes categorías recogen la selección de vello sobre la zona -->
+	<category>
+		<pattern>1</pattern>
+		<that>* VELLO *</that>
+		<tarea>Pelo</tarea>
+		<template>¿Qué tipo de psoriasis es? 1. Tipo gota 2. Tipo placa 3. Salir</template>
+	</category>
+	<category>
+		<pattern>1.</pattern>
+		<that>* VELLO *</that>
+		<template><srai>1</srai></template>
+	</category>
+	<category>
+		<pattern>SÍ</pattern>
+		<that>* VELLO *</that>
+		<template><srai>1</srai></template>
+	</category>
+	<category>
+		<pattern>SI</pattern>
+		<that>* VELLO *</that>
+		<template><srai>1</srai></template>
+	</category>
+	<category>
+		<pattern>2</pattern>
+		<that>* VELLO *</that>
+		<tarea>No_Pelo</tarea>
+		<template>¿Indique el tipo de psoriasis? 1. Tipo gota 2. Tipo placa 3. Salir</template>
+	</category>
+	<category>
+		<pattern>2.</pattern>
+		<that>* VELLO *</that>
+		<template><srai>2</srai></template>
+	</category>
+	<category>
+		<pattern>NO</pattern>
+		<that>* VELLO *</that>
+		<template><srai>2</srai></template>
+	</category>
+	<category>
+		<pattern>3</pattern>
+		<that>* VELLO *</that>
+		<template><srai>SALIR</srai></template>
+	</category>
+	<category>
+		<pattern>3.</pattern>
+		<that>* VELLO *</that>
+		<template><srai>SALIR</srai></template>
+	</category>
+	<!-- Categorías para la selección del tipo de psoriasis -->
+	<category>
+		<pattern>1</pattern>
+		<that>* TIPO DE PSORIASIS *</that>
+		<tarea>Gota</tarea>
+		<template>¿Guardar resultados del análisis tipo gota? 1. Sí 2. Repetir análisis 3. Salir</template>
+	</category>
+	<category>
+		<pattern>1.</pattern>
+		<that>* TIPO DE PSORIASIS *</that>
+		<template><srai>1</srai></template>
+	</category>
+	<category>
+		<pattern>TIPO GOTA</pattern>
+		<that>* TIPO DE PSORIASIS *</that>
+		<template><srai>1</srai></template>
+	</category>
+	<category>
+		<pattern>GOTA</pattern>
+		<that>* TIPO DE PSORIASIS *</that>
+		<template><srai>1</srai></template>
+	</category>
+	<category>
+		<pattern>2</pattern>
+		<that>* TIPO DE PSORIASIS *</that>
+		<tarea>Placa</tarea>
+		<template>¿Guardar resultados del análisis tipo placa? 1. Sí 2. Repetir análisis 3. Salir</template>
+	</category>
+	<category>
+		<pattern>2.</pattern>
+		<that>* TIPO DE PSORIASIS *</that>
+		<template><srai>2</srai></template>
+	</category>
+	<category>
+		<pattern>TIPO PLACA</pattern>
+		<that>* TIPO DE PSORIASIS *</that>
+		<template><srai>2</srai></template>
+	</category>
+	<category>
+		<pattern>PLACA</pattern>
+		<that>* TIPO DE PSORIASIS *</that>
+		<template><srai>2</srai></template>
+	</category>
+	<category>
+		<pattern>3</pattern>
+		<that>* TIPO DE PSORIASIS *</that>
+		<template><srai>SALIR</srai></template>
+	</category>
+	<category>
+		<pattern>3.</pattern>
+		<that>* TIPO DE PSORIASIS *</that>
+		<template><srai>SALIR</srai></template>
+	</category>
+	<!-- Las siguientes categorías recogen las opciones de guardado -->
+	<category>
+		<pattern>1</pattern>
+		<that>* RESULTADOS *</that>
+		<microservice>Salir</microservice>
+		<tarea>Guardar</tarea>
+		<template>Datos guardados, se procede a salir de Procesado_imagen</template>
+	</category>
+	<category>
+		<pattern>1.</pattern>
+		<that>* RESULTADOS *</that>
+		<template><srai>1</srai></template>
+	</category>
+	<category>
+		<pattern>SI</pattern>
+		<that>* RESULTADOS *</that>
+		<template><srai>1</srai></template>
+	</category>
+	<category>
+		<pattern>SÍ</pattern>
+		<that>* RESULTADOS *</that>
+		<template><srai>1</srai></template>
+	</category>
+	<category>
+		<pattern>2</pattern>
+		<that>* RESULTADOS *</that>
+		<template><srai>PROCESADO</srai></template>
+	</category>
+	<category>
+		<pattern>2.</pattern>
+		<that>* RESULTADOS *</that>
+		<template><srai>2</srai></template>
+	</category>
+	<category>
+		<pattern>REPETIR</pattern>
+		<that>* RESULTADOS *</that>
+		<template><srai>2</srai></template>
+	</category>
+	<category>
+		<pattern>REPETIR ANÁLISIS</pattern>
+		<that>* RESULTADOS *</that>
+		<template><srai>2</srai></template>
+	</category>
+	<category>
+		<pattern>3</pattern>
+		<that>* RESULTADOS *</that>
+		<template><srai>SALIR</srai></template>
+	</category>
+	<category>
+		<pattern>3.</pattern>
+		<that>* RESULTADOS *</that>
+		<template><srai>3</srai></template>
+	</category>
+	<!-- Las siguientes categorías recogen la opción de salir del análisis -->
+	<category>
+		<pattern>SALIR</pattern>
+		<template>¿Desea salir del análisis? 1. Sí 2. No</template>
+	</category>
+	<category>
+		<pattern>1</pattern>
+		<that>* SALIR DEL ANÁLISIS *</that>
+		<microservice>Salir</microservice>
+		<template>Saliendo de Procesado_imagen</template>
+	</category>
+	<category>
+		<pattern>1.</pattern>
+		<that>* SALIR DEL ANÁLISIS *</that>
+		<template><srai>1</srai></template>
+	</category>
+	<category>
+		<pattern>SI</pattern>
+		<that>* SALIR DEL ANÁLISIS *</that>
+		<template><srai>1</srai></template>
+	</category>
+	<category>
+		<pattern>SÍ</pattern>
+		<that>* SALIR DEL ANÁLISIS *</that>
+		<template><srai>1</srai></template>
+	</category>
+	<category>
+		<pattern>2</pattern>
+		<that>* SALIR DEL ANÁLISIS *</that>
+		<template><srai>PROCESADO</srai></template>
+	</category>
+	<category>
+		<pattern>2.</pattern>
+		<that>* SALIR DEL ANÁLISIS *</that>
+		<template><srai>2</srai></template>
+	</category>
+		<category>
+		<pattern>NO</pattern>
+		<that>* SALIR DEL ANÁLISIS *</that>
+		<template><srai>2</srai></template>
+	</category>
+	<!-- La siguiente categoría recoge la situación de que no se asigne un comando correcto -->
+	<!-- <category>
+		<pattern>*</pattern>
+		<template>
+			<random>
+				<li>Vaya, no te he entendido.</li>
+				<li><srai>MEDIA</srai>Estoy un poco perdida.</li>
+			</random>
+		</template>
+	</category>-->
+	<category>
+		<pattern>*</pattern>
+		<template><srai>PROCESADO</srai></template>
+	</category>
+</aiml>
