@@ -62,8 +62,8 @@ def recorte(image, save_location): #RGB, Gray
         
 
     #Se dibujan los circulos sobre los marcadores
-    for marca in range(0,4):
-        img = cv2.circle(img,tuple(centros[marca]),radios[marca] + 20,(0,0,0),-1)
+    #for marca in range(0,4):
+        #img = cv2.circle(img,tuple(centros[marca]),radios[marca] + 20,(0,0,0),-1)
         #imgray = cv2.circle(imgray,tuple(centros[marca]),radios[marca] + 10,(0,0,0),-1)
 
     ##Recorte del area contenida en los keypoints
@@ -378,12 +378,23 @@ def quitar_pelo(image, save_location):
 
 
 ####Función para calcular el area en cm2
-def calc_area(area, area_marcador):
+def calc_area(area, area_marcador, tarea):
     area = int(area)
     area_marcador = int(area_marcador)
     area_real_cm2 = (MARCADOR * area)/ area_marcador
     area_real_cm2 = int(np.around(area_real_cm2)) #redondeo
+
+    #Se elimina el área de los marcadores blancos detectados
+    if tarea == 'Gota':
+        pass
+    elif tarea == 'Placa':
+        area_real_cm2 = area_real_cm2 - MARCADOR
     return area_real_cm2
+##    area = int(area)
+##    area_marcador = int(area_marcador)
+##    area_real_cm2 = (MARCADOR * area)/ area_marcador
+##    area_real_cm2 = int(np.around(area_real_cm2)) #redondeo
+##    return area_real_cm2
     
 
 

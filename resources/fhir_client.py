@@ -88,8 +88,14 @@ def update_image(location, data): #localización base de datos
     headers['Authorization'] = 'Bearer ' + token['Data']['id_token']
 
     #Mensaje a enviar
-    data['basedOn'] = [{"reference": "ProcedureRequest/800"}]
-    data['device'] = {"reference": "Device/776"}
+    data['basedOn'] = [{"identifier" : {"use": "temp",
+                                        "value": "Procedure_Monitorizacion_Psoriasis",
+                                        "assigner": "UNIZAR"
+                                        }}]
+    data['device'] = {"identifier": { "use": "temp",
+                                      "value": "Procesado_imagen",
+                                      "assigner": "UNIZAR"
+                                      }}
     payload = json.dumps(data)
 
     #Petición put a la base de datos para actualizar el recurso
@@ -102,7 +108,7 @@ def update_image(location, data): #localización base de datos
     data = r.read()
     print(r.status, r.reason, 'DB_FHIR Operation Update image')
     data = json.loads(data)
-    #print(data)
+    print(data)
 
     conn.close()
 
@@ -129,8 +135,14 @@ def post_data(data, user, patient_id):
     file.close()
     
     payload = {"resourceType": "Observation",
-               "basedOn": [{"reference": "DeviceRequest/798"},
-                           {"reference": "ProcedureRequest/800"}
+               "basedOn": [{"identifier" : {"use": "temp",
+                                            "value": "Monitorizacion_Psoriasis",
+                                            "assigner": "UNIZAR"
+                                            }},
+                           {"identifier" : {"use": "temp",
+                                            "value": "Procedure_Monitorizacion_Psoriasis",
+                                            "assigner": "UNIZAR"
+                                            }}
                            ],
                "status": "registered", #"preliminary"
                "code": {"coding": [{"system": "http://loinc.org",
@@ -145,7 +157,10 @@ def post_data(data, user, patient_id):
                         },
                "subject": {"reference": "Patient/"+patient_id},
                "valueString": data,
-               "device": {"reference": "Device/776"},
+               "device": {"identifier": { "use": "temp",
+                                          "value": "Procesado_imagen",
+                                          "assigner": "UNIZAR"
+                                          }},
                "component": [{"code": {"coding": [{"system": "http://loinc.org",
                                                    "code": "10206-1",
                                                    "display": "Physical findings of Skin Narrative"
@@ -191,7 +206,7 @@ def post_data(data, user, patient_id):
     data = r.read()
     print(r.status, r.reason, 'DB_FHIR Operation Save Data')
     data = json.loads(data)
-    #print(data)
+    print(data)
     
     conn.close()
 
@@ -207,24 +222,24 @@ def DB_device_creation():
     #Petición get a la base de datos
     context = ssl.SSLContext(ssl.PROTOCOL_TLSv1)
     conn = http.client.HTTPSConnection(config['HOSTNAME'], config['PORT'], context=context)
-    conn.request('GET', config['URL_FHIR']+"Device/776", headers=headers)
-    r = conn.getresponse()
+    conn.request('GET', config['URL_FHIR']+"Device?identifier:value=Procesado_imagen", headers=headers)
+    r = conn.getresponse()                  #776
     header = r.getheaders()
     #print(header)
     data = r.read()
     print(r.status, r.reason, 'DB_FHIR Operation GET Device')
     data = json.loads(data)
-    #print(data)
+    print(data)
     
     conn.close()
 
-    if r.status == 200:
+    if int(data['total']) != 0:
         pass           #Si ya está creado no lo vuelve a crear.
     else:
         #Mensajes a enviar
         ##Device
         payload = {"resourceType": "Device",
-                   "id": "776", #Se establece id fija (cambiar si está ocupada en el DB)
+                   #"id": "776", #Se establece id fija (cambiar si está ocupada en el DB)
                    "identifier": [{ "use": "temp",
                                     "value": "Procesado_imagen",
                                     "assigner": "UNIZAR"
@@ -258,7 +273,7 @@ def DB_device_creation():
         data = r.read()
         print(r.status, r.reason, 'DB_FHIR Creation Device')
         data = json.loads(data)
-        #print(data)
+        print(data)
 
         conn.close()
 
@@ -267,23 +282,23 @@ def DB_device_creation():
     #Petición get a la base de datos
     context = ssl.SSLContext(ssl.PROTOCOL_TLSv1)
     conn = http.client.HTTPSConnection(config['HOSTNAME'], config['PORT'], context=context)
-    conn.request('GET', config['URL_FHIR']+"DeviceMetric/777", headers=headers)
-    r = conn.getresponse()
+    conn.request('GET', config['URL_FHIR']+"DeviceMetric?identifier:value=Procesado_imagen_Metric", headers=headers)
+    r = conn.getresponse()              #777
     header = r.getheaders()
     #print(header)
     data = r.read()
     print(r.status, r.reason, 'DB_FHIR Operation GET DeviceMetric')
     data = json.loads(data)
-    #print(data)
+    print(data)
     
     conn.close()
 
-    if r.status == 200:
+    if int(data['total']) != 0:
         pass           #Si ya está creado no lo vuelve a crear.
     else:
         ##DeviceMetric
         payload2 = {"resourceType" : "DeviceMetric",
-                    "id": "777", #Se establece id fija (cambiar si está ocupada en el DB)
+                    #"id": "777", #Se establece id fija (cambiar si está ocupada en el DB)
                     "identifier" : {"use": "temp",
                                     "value": "Procesado_imagen_Metric",
                                     "assigner": "UNIZAR"
@@ -300,7 +315,10 @@ def DB_device_creation():
                                          }],
                               "text": "centímetros cuadrados"
                               },
-                    "source" : {"reference": "Device/776"},
+                    "source" : {"identifier": { "use": "temp",
+                                                "value": "Procesado_imagen",
+                                                "assigner": "UNIZAR"
+                                                }},
                     #"parent" : {"reference": "Procesado_imagen_Component"},
                     "operationalStatus" : "off", # on | off | standby | entered-in-error
                     "color" : "red",
@@ -308,79 +326,18 @@ def DB_device_creation():
                     }
         payload2 = json.dumps(payload2)
 
-    #Petición post a la base de datos para crear recursos
-    ##DeviceMetric
-    context = ssl.SSLContext(ssl.PROTOCOL_TLSv1)
-    conn = http.client.HTTPSConnection(config['HOSTNAME'], config['PORT'], context=context)
-    conn.request('POST', config['URL_FHIR']+"DeviceMetric", payload2, headers)
-    r = conn.getresponse()
-    header = r.getheaders()
-    data = r.read()
-    print(r.status, r.reason, 'DB_FHIR Creation DeviceMetric')
-    data = json.loads(data)
-    #print(data)
-    
-    conn.close()
-
-
-# Función crear request para el device
-def DB_device_request_creation():
-    #Disposición de Headers
-    token = tokens.server_token().get_tokenDB()
-    headers['Authorization'] = 'Bearer ' + token['Data']['id_token']
-
-    #Se comprueba si esta creado
-    #Petición get a la base de datos
-    context = ssl.SSLContext(ssl.PROTOCOL_TLSv1)
-    conn = http.client.HTTPSConnection(config['HOSTNAME'], config['PORT'], context=context)
-    conn.request('GET', config['URL_FHIR']+"DeviceRequest/798", headers=headers)
-    r = conn.getresponse()
-    header = r.getheaders()
-    #print(header)
-    data = r.read()
-    print(r.status, r.reason, 'DB_FHIR Operation GET DeviceRequest')
-    data = json.loads(data)
-    #print(data)
-    
-    conn.close()
-
-    if r.status == 200:
-        pass           #Si ya está creado no lo vuelve a crear.
-    else:
-        #Mensaje a enviar
-        payload = {"resourceType": "DeviceRequest",
-                   "id": "798", #sujeto a cambios en el DB
-                   "identifier" : [{"use": "temp",
-                                    "value": "Monitorización_Psoriasis",
-                                    "assigner": "UNIZAR"
-                                    }],
-                   "intent" : {"coding": [{"system": "http://hl7.org/fhir/request-intent",
-                                           "code": "proposal",
-                                           "display": "Proposal"
-                                           }]
-                                         },
-                   #"priority" : "routine",
-                   "subject" : {"reference": "Device/776"},
-                   "authoredOn" : time.strftime("%Y-%m-%d"+"T"+"%I:%M:%S"+"+02:00"),
-                   "reasonCode" : [{"coding": [{"system": "http://snomed.info/sct",
-                                                "code": "9014002",
-                                                "display": "psoriasis"
-                                                }]
-                                    }]
-                   }
-        payload = json.dumps(payload)
-
-        #Petición post a la base de datos para crear recurso
+        #Petición post a la base de datos para crear recursos
+        ##DeviceMetric
         context = ssl.SSLContext(ssl.PROTOCOL_TLSv1)
         conn = http.client.HTTPSConnection(config['HOSTNAME'], config['PORT'], context=context)
-        conn.request('POST', config['URL_FHIR']+"DeviceRequest", payload, headers)
+        conn.request('POST', config['URL_FHIR']+"DeviceMetric", payload2, headers)
         r = conn.getresponse()
         header = r.getheaders()
         data = r.read()
-        print(r.status, r.reason, 'DB_FHIR Create DeviceRequest')
+        print(r.status, r.reason, 'DB_FHIR Creation DeviceMetric')
         data = json.loads(data)
-        #print(data)
-
+        print(data)
+    
         conn.close()
 
 
@@ -393,7 +350,7 @@ def device_update_DB(estado): #active, inactive
     #Mensajes a enviar
     ##Device
     payload = {"resourceType": "Device",
-               "id": "776", #sujeto a cambios en el DB
+               #"id": "776", #sujeto a cambios en el DB
                "identifier": [{ "use": "temp",
                                 "value": "Procesado_imagen",
                                 "assigner": "UNIZAR"
@@ -426,7 +383,7 @@ def device_update_DB(estado): #active, inactive
         status = "entered-in-error"
     
     payload2 = {"resourceType" : "DeviceMetric",
-                "id": "777", #sujeto a cambios en el DB
+                #"id": "777", #sujeto a cambios en el DB
                 "identifier" : {"use": "temp",
                                 "value": "Procesado_imagen_Metric",
                                 "assigner": "UNIZAR"
@@ -443,7 +400,10 @@ def device_update_DB(estado): #active, inactive
                                      }],
                           "text": "centímetros cuadrados"
                           },
-                "source" : {"reference": "Device/776"},
+                "source" : {"identifier": { "use": "temp",
+                                            "value": "Procesado_imagen",
+                                            "assigner": "UNIZAR"
+                                            }},
                 #"parent" : {"reference": "Procesado_imagen_Component"},
                 "operationalStatus" : status, # on | off | standby | entered-in-error
                 "color" : "red",
@@ -455,30 +415,30 @@ def device_update_DB(estado): #active, inactive
     ##Device
     context = ssl.SSLContext(ssl.PROTOCOL_TLSv1)
     conn = http.client.HTTPSConnection(config['HOSTNAME'], config['PORT'], context=context)
-    conn.request('PUT', config['URL_FHIR']+"Device/776", payload, headers)#La id del Device puede estar sujeta a cambios (se recomienda comporbaren el DB)
+    conn.request('PUT', config['URL_FHIR']+"Device?identifier:value=Procesado_imagen", payload, headers)#La id del Device puede estar sujeta a cambios (se recomienda comporbaren el DB)
     r = conn.getresponse()
     header = r.getheaders()
     data = r.read()
     print(r.status, r.reason, 'DB_FHIR Update Device')
     data = json.loads(data)
-    #print(data)
+    print(data)
 
     ##DeviceMetric
     context = ssl.SSLContext(ssl.PROTOCOL_TLSv1)
     conn = http.client.HTTPSConnection(config['HOSTNAME'], config['PORT'], context=context)
-    conn.request('PUT', config['URL_FHIR']+"DeviceMetric/777", payload2, headers) #La id del DeviceMetric puede estar sujeta a cambios (se recomienda comporbaren el DB)
+    conn.request('PUT', config['URL_FHIR']+"DeviceMetric?identifier:value=Procesado_imagen_Metric", payload2, headers) #La id del DeviceMetric puede estar sujeta a cambios (se recomienda comporbaren el DB)
     r = conn.getresponse()
     header = r.getheaders()
     data = r.read()
     print(r.status, r.reason, 'DB_FHIR Update DeviceMetric')
     data = json.loads(data)
-    #print(data)
+    print(data)
     
     conn.close()
 
 
-# Función crear el procedure request
-def DB_procedure_request_creation():
+# Función crear request para el device
+def DB_device_request_creation():
     #Disposición de Headers
     token = tokens.server_token().get_tokenDB()
     headers['Authorization'] = 'Bearer ' + token['Data']['id_token']
@@ -487,37 +447,37 @@ def DB_procedure_request_creation():
     #Petición get a la base de datos
     context = ssl.SSLContext(ssl.PROTOCOL_TLSv1)
     conn = http.client.HTTPSConnection(config['HOSTNAME'], config['PORT'], context=context)
-    conn.request('GET', config['URL_FHIR']+"ProcedureRequest/800", headers=headers)
+    conn.request('GET', config['URL_FHIR']+"DeviceRequest?identifier:value=Monitorizacion_Psoriasis", headers=headers)
     r = conn.getresponse()
     header = r.getheaders()
     #print(header)
     data = r.read()
-    print(r.status, r.reason, 'DB_FHIR Operation GET ProcedureRequest')
+    print(r.status, r.reason, 'DB_FHIR Operation GET DeviceRequest')
     data = json.loads(data)
-    #print(data)
+    print(data)
     
     conn.close()
 
-    if r.status == 200:
+    if int(data['total']) != 0:
         pass           #Si ya está creado no lo vuelve a crear.
     else:
         #Mensaje a enviar
-        payload = {"resourceType": "ProcedureRequest",
-                   "id": "800",
+        payload = {"resourceType": "DeviceRequest",
+                   #"id": "798", #sujeto a cambios en el DB
                    "identifier" : [{"use": "temp",
-                                    "value": "Procedure_Monitorización_Psoriasis",
+                                    "value": "Monitorizacion_Psoriasis",
                                     "assigner": "UNIZAR"
                                     }],
-                   "replaces" : [{"reference": "DeviceRequest/798"}],
-                   "status" : "active",
-                   "intent" : "proposal",
+                   "intent" : {"coding": [{"system": "http://hl7.org/fhir/request-intent",
+                                           "code": "proposal",
+                                           "display": "Proposal"
+                                           }]
+                                         },
                    #"priority" : "routine",
-                   "code": {"coding": [{"system": "http://snomed.info/sct",
-                                        "code": "701654001",
-                                        "display": "Self-care monitoring web-based application software"
-                                        }],
-                            },
-                   "subject" : {"reference": "Device/776"},
+                   "subject" : {"identifier": [{ "use": "temp",
+                                                 "value": "Procesado_imagen",
+                                                 "assigner": "UNIZAR"
+                                                 }]},
                    "authoredOn" : time.strftime("%Y-%m-%d"+"T"+"%I:%M:%S"+"+02:00"),
                    "reasonCode" : [{"coding": [{"system": "http://snomed.info/sct",
                                                 "code": "9014002",
@@ -530,13 +490,83 @@ def DB_procedure_request_creation():
         #Petición post a la base de datos para crear recurso
         context = ssl.SSLContext(ssl.PROTOCOL_TLSv1)
         conn = http.client.HTTPSConnection(config['HOSTNAME'], config['PORT'], context=context)
-        conn.request('Post', config['URL_FHIR']+"ProcedureRequest", payload, headers)
+        conn.request('POST', config['URL_FHIR']+"DeviceRequest", payload, headers)
+        r = conn.getresponse()
+        header = r.getheaders()
+        data = r.read()
+        print(r.status, r.reason, 'DB_FHIR Create DeviceRequest')
+        data = json.loads(data)
+        print(data)
+
+        conn.close()
+
+
+# Función crear el procedure request
+def DB_procedure_request_creation():
+    #Disposición de Headers
+    token = tokens.server_token().get_tokenDB()
+    headers['Authorization'] = 'Bearer ' + token['Data']['id_token']
+
+    #Se comprueba si esta creado
+    #Petición get a la base de datos
+    context = ssl.SSLContext(ssl.PROTOCOL_TLSv1)
+    conn = http.client.HTTPSConnection(config['HOSTNAME'], config['PORT'], context=context)
+    conn.request('GET', config['URL_FHIR']+"ProcedureRequest?identifier:value=Procedure_Monitorizacion_Psoriasis", headers=headers)
+    r = conn.getresponse()
+    header = r.getheaders()
+    #print(header)
+    data = r.read()
+    print(r.status, r.reason, 'DB_FHIR Operation GET ProcedureRequest')
+    data = json.loads(data)
+    print(data)
+    
+    conn.close()
+
+    if int(data['total']) != 0:
+        pass           #Si ya está creado no lo vuelve a crear.
+    else:
+        #Mensaje a enviar
+        payload = {"resourceType": "ProcedureRequest",
+                   #"id": "800",
+                   "identifier" : [{"use": "temp",
+                                    "value": "Procedure_Monitorizacion_Psoriasis",
+                                    "assigner": "UNIZAR"
+                                    }],
+                   "replaces" : [{"identifier" : {"use": "temp",
+                                                  "value": "Monitorización_Psoriasis",
+                                                  "assigner": "UNIZAR"
+                                                  }}],
+                   "status" : "active",
+                   "intent" : "proposal",
+                   #"priority" : "routine",
+                   "code": {"coding": [{"system": "http://snomed.info/sct",
+                                        "code": "701654001",
+                                        "display": "Self-care monitoring web-based application software"
+                                        }],
+                            },
+                   "subject" : {"identifier": { "use": "temp",
+                                                "value": "Procesado_imagen",
+                                                "assigner": "UNIZAR"
+                                                }},
+                   "authoredOn" : time.strftime("%Y-%m-%d"+"T"+"%I:%M:%S"+"+02:00"),
+                   "reasonCode" : [{"coding": [{"system": "http://snomed.info/sct",
+                                                "code": "9014002",
+                                                "display": "psoriasis"
+                                                }]
+                                    }]
+                   }
+        payload = json.dumps(payload)
+
+        #Petición post a la base de datos para crear recurso
+        context = ssl.SSLContext(ssl.PROTOCOL_TLSv1)
+        conn = http.client.HTTPSConnection(config['HOSTNAME'], config['PORT'], context=context)
+        conn.request('POST', config['URL_FHIR']+"ProcedureRequest", payload, headers)
         r = conn.getresponse()
         header = r.getheaders()
         data = r.read()
         print(r.status, r.reason, 'DB_FHIR Create ProcedureRequest')
         data = json.loads(data)
-        #print(data)
+        print(data)
 
         conn.close()
 
