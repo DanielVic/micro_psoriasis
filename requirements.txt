@@ -13,7 +13,7 @@ numpy==1.13.3
 olefile==0.44
 opencv-python==3.3.0.10
 pycparser==2.18
-PyJWT==1.5.3
+PyJWT==2.4.0
 pyOpenSSL==17.4.0
 pyparsing==2.2.0
 python-aiml==0.9.1
