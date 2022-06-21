@@ -9,7 +9,7 @@ fhirclient==3.2.0
 idna==2.6
 isodate==0.6.0
 matplotlib==2.1.0
-numpy==1.13.3
+numpy==1.22.0
 olefile==0.44
 opencv-python==3.3.0.10
 pycparser==2.18
